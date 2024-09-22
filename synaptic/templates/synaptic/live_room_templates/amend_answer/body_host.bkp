@@ -1,0 +1,32 @@
+<div id='content-container-inner' class='mt-4'>
+    <!-- # question text -->
+    <div  class="row text-center justify-content-center mx-auto align-height primary-font font-md mt-1 mb-1 align-items-center" >
+        <div class="col-10 col-md-10 col-xl-8 col-xxl-6" >Q.{{ question.question_number }}: {{ question.question }}</div>
+    </div>
+
+    <!-- answers -->
+    <div class="form-row row text-center justify-content-center align-items-center mx-auto align-height mt-4" >
+        {% for answer in answer_list %}
+            <div class="col-11 col-xs-8 col-md-10 col-lg-5 col-xl-4 col-xxl-4 mt-2 mb-0 pt-0 pb-0
+                justify-content-center align-items-center answer-container answer-{{answer.answer_number}}
+                            ms-0 me-lg-2"  id="answer-{(answer_answer_number}}-container" data-shape="rounded-pill">
+                <div  class="form-row row justify-content-center align-items-center answer-row" >
+                    <div class="col-1 font-colour-white ms-0 me-0">A{{answer.answer_number}}:</div>
+                    <div class="col-8 ms-0 me-0 ps-0 pe-0">
+                        <div id="div_id_answer_{{answer.answer_number}}" class="form-group {{ answer_text_size }}
+                            primary-font font-colour-white ms-0 me-0 ps-0 pe-0">
+                            {{ answer.answer }}
+                        </div>
+                    </div>
+                    <button id="correct_answer_{{ answer.answer_number}}" type="button" class="col-2
+                            answer-button answer-{{answer.answer_number}} text-right far
+                            {% if answer.correct_answer == True %}fa-check-circle{% else %}fa-circle{% endif %} fa-2x ms-0 me-0"
+                            data-state={{ answer.correct_answer }}>
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+

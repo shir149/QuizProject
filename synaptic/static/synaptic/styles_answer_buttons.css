@@ -1,0 +1,152 @@
+:root {
+
+  --answer-1-colour: #e21b3c;
+  --answer-2-colour: #1368ce;
+  --answer-3-colour: #d89e00;
+  --answer-4-colour: #26890C;
+}
+
+.answer-div {
+    min-width: 200px !important;
+    font-family: var(--font-family);
+    border-width: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-style: solid;
+    border-color: transparent;
+}
+
+.equal-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.answer-div:hover {
+    border-width: 4px;
+    border-color: transparent;
+}
+
+.answer-div:active {
+    border-width: 4px;
+    border-color: transparent;
+}
+
+.answer-btn {
+    min-width: 200px !important;
+    font-family: var(--font-family);
+    border-width: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-style: solid;
+    border-color: transparent !important;
+    background-color: transparent;
+}
+
+.answer-btn:hover {
+    border-width: 4px;
+    border-color: var(--primary-colour) !important;
+}
+
+.answer-btn:active, .answer-btn:focus {
+    border-width: 4px;
+    border-color: var(--primary-colour) !important;
+}
+
+.answer-button:focus {
+    box-shadow: 0 0 5px 5px var(--primary-colour);
+}
+
+#id_answer_2 {
+  border-color: #1368ce !important;
+  border-width: 4px !important;
+}
+#id_answer_3 {
+  border-color: #d89e00 !important;
+  border-width: 4px !important;
+}
+#id_answer_4 {
+  border-color: #26890C !important;
+  border-width: 4px !important;
+}
+
+.answer-text {
+    border: none;
+}
+
+/*
+.answer-text:focus {
+    outline: none !important;
+    border: none;
+    box-shadow: none;
+}
+*/
+
+.answer-button {
+    max-height: 1.5em;
+}
+
+.answer-button-text {
+    overflow: hidden;
+    resize: none;
+    color: #ffffff;
+}
+
+.answer-button-text:focus {
+    box-shadow: 0 0 5px 5px var(--primary-colour);
+    color: #ffffff;
+}
+
+.answer-button {
+    color: #ffffff;
+    background-color: transparent !important;
+}
+
+[data-shape='rounded'] {
+    border-radius: 10px;
+}
+
+[data-shape='rounded-pill'] {
+    border-radius: 1000px;
+}
+
+.answer-1 {
+    background-color: var(--answer-1-colour);
+    border-color: var(--answer-1-colour);
+}
+
+.answer-1:focus {
+    background-color: var(--answer-1-colour);
+    border-color: var(--answer-1-colour);
+}
+
+.answer-2 {
+    background-color: var(--answer-2-colour);
+    border-color: var(--answer-2-colour);
+}
+
+.answer-2:focus {
+    background-color: var(--answer-2-colour);
+    border-color: var(--answer-2-colour);
+}
+
+.answer-3 {
+    background-color: var(--answer-3-colour);
+    border-color: var(--answer-3-colour);
+}
+
+.answer-3:focus {
+    background-color: var(--answer-3-colour);
+    border-color: var(--answer-3-colour);
+}
+
+.answer-4 {
+    background-color: var(--answer-4-colour);
+    border-color: var(--answer-4-colour);
+}
+
+.answer-4:focus {
+    background-color: var(--answer-4-colour);
+    border-color: var(--answer-4-colour);
+}
+

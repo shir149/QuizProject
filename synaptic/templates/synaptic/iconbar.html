@@ -1,0 +1,80 @@
+{% load static %}
+<ul class="nav me-auto">
+</ul>
+
+<ul class="nav">
+    <li class="nav-item">
+    </li>
+    {% if icon_buttons.expand %}
+        <button id='iconbar_expand' type="button" value="Expand" class="fas fa-arrows-alt-v ms-1 me-1 icon-button"
+                {{icon_buttons.expand_button_state}}
+                data-state="hidden"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ icon_buttons.expand_button_text }}"
+                onclick="expandSubmit(event, this)">
+        </button>
+    {% endif %}
+    {% if icon_buttons.add %}
+        <button id='iconbar_add' type="button" value="Add" class="fas fa-plus-circle ms-1 me-1 icon-button"
+                {{icon_buttons.add_button_state}}
+                data-state="{% if icon_buttons.add_button_state == 'disabled' %}disabled{% else %}enabled{% endif %}"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ icon_buttons.add_button_text }}"
+                onclick="buttonSubmit(event, this)">
+        </button>
+    {% endif %}
+    {% if icon_buttons.prev %}
+        <button id='iconbar_prev' type="button" value="Prev" class="fas fa-chevron-left ms-1 me-1 icon-button"
+                {{icon_buttons.prev_button_state}}
+                data-state="{% if icon_buttons.prev_button_state == 'disabled' %}disabled{% else %}enabled{% endif %}"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ icon_buttons.prev_button_text }}"
+                onclick="buttonSubmit(event, this)">
+        </button>
+    {% endif %}
+    {% if icon_buttons.next %}
+        <button id='iconbar_next' type="button" value="Next" class="fas fa-chevron-right ms-1 me-1 icon-button"
+                {{icon_buttons.next_button_state}}
+                data-state="{% if icon_buttons.next_button_state == 'disabled' %}disabled{% else %}enabled{% endif %}"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ icon_buttons.next_button_text }}"
+                onclick="buttonSubmit(event, this)">
+        </button>
+    {% endif %}
+    {% if icon_buttons.check %}
+        <button id='iconbar_check' type="button" value="Check" class="far fa-check-circle ms-1 me-1 icon-button"
+                {{icon_buttons.check_button_state}}
+                data-state="{% if icon_buttons.check_button_state == 'disabled' %}disabled{% else %}enabled{% endif %}"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ icon_buttons.check_button_text }}"
+                onclick="buttonSubmit(event, this)">
+        </button>
+    {% endif %}
+    {% if icon_buttons.upload %}
+        <button id='iconbar_upload' type="button" value="Upload" class="fas fa-upload ms-2 me-0 icon-button"
+                {{icon_buttons.upload_button_state}}
+                data-state="{% if icon_buttons.upload_button_state == 'disabled' %}disabled{% else %}enabled{% endif %}"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ icon_buttons.upload_button_text }}"
+                onclick="buttonSubmit(event, this)">
+        </button>
+    {% endif %}
+    {% if icon_buttons.save %}
+        <button id='iconbar_save' type="button" value="Save" class="fas fa-save ms-2 me-0 icon-button"
+                {{icon_buttons.save_button_state}}
+                data-state="{% if icon_buttons.save_button_state == 'disabled' %}disabled{% else %}enabled{% endif %}"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ icon_buttons.save_button_text }}"
+                onclick="buttonSubmit(event, this)">
+        </button>
+    {% endif %}
+    {% if icon_buttons.cancel %}
+        <button id='iconbar_cancel' type="button" value="Cancel" class="fas fa-times ms-1 me-0 icon-button"
+                {{icon_buttons.save_button_state}}
+                data-state="{% if icon_buttons.cancel_button_state == 'disabled' %}disabled{% else %}enabled{% endif %}"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ icon_buttons.cancel_button_text }}"
+                onclick="buttonSubmit(event, this)">
+        </button>
+    {% endif %}
+    {% if icon_buttons.back %}
+        <button id='iconbar_back' type="button" value="Back" class="fas fa-level-up-alt ms-1 me-2 icon-button"
+                {{icon_buttons.back_button_state}}
+                data-state="{% if icon_buttons.back_button_state == 'disabled' %}disabled{% else %}enabled{% endif %}"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ icon_buttons.back_button_text }}"
+                onclick="buttonSubmit(event, this)">
+        </button>
+    {% endif %}
+</ul>

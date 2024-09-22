@@ -1,0 +1,75 @@
+{% extends "synaptic/layout.html" %}
+{% load static %}
+
+{% block stylesheets %}
+    <link href="{% static 'synaptic/styles_answer_buttons.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div id="nickname" class="position-absolute" hidden>{{nickname}}</div>
+    <div id="content-container-header-outer" class="container top-page-element"
+         data-state="{% if show_navbar %}show{% else %}hide{% endif %}">
+        <div id="content-container-header-inner" class="row"></div>
+    </div>
+
+    <div id="content-container-body-outer" class="container">
+        <div id="content-container-body-inner" class="row"></div>
+    </div>
+
+    <div id="content-container-footer-outer" class="container">
+    <div id="content-container-footer-inner" class="row"></div>
+    </div>
+
+<script src="{% static 'synaptic/live_room_sockets.js' %}"></script>
+<script src="{% static 'synaptic/timer.js' %}"></script>
+
+<script>
+function sendElement(element) {
+    element.setAttribute('disabled', 'disabled');
+    hideTooltip(element);
+    var data = {
+        "type": element.id,
+        "value": element.innerText
+    }
+    socket.send(JSON.stringify(data));
+}
+
+function sendRestart(element) {
+    hideTooltip(element);
+    var data = {
+        "type": element.value,
+        "value": element.dataset.id
+    }
+    socket.send(JSON.stringify(data));
+}
+
+function sendReturnToAnswers(element) {
+    hideTooltip(element);
+    message_bar.hidden = true;
+    var answerButtons = document.querySelectorAll('.answer-button');
+    var answers = {}
+    answerButtons.forEach(button => {
+        if (button.classList.contains('fa-check-circle')) {
+            answers[button.id] = true;
+        } else {
+            answers[button.id] = false;
+        }
+    })
+    var data = {
+        "type": element.value,
+        "value": answers
+    }
+    socket.send(JSON.stringify(data));
+}
+
+{% if room.preview %}
+    startTimer(3);
+{% endif %}
+
+//$(document).ready(function(){
+//    document.querySelector("#host-control-button").onclick = sendElement;
+//});
+
+</script>
+{% endblock %}
+

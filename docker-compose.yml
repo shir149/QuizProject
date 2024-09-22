@@ -1,0 +1,20 @@
+services:
+  web:
+    container_name: synaptic_app
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=synaptic_redis
+    depends_on:
+      - redis
+
+  redis:
+    container_name: synaptic_redis
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"

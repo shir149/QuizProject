@@ -1,0 +1,87 @@
+<div id='content-container-inner' class='mt-4'>
+    <!-- # question text -->
+    <div  class="row text-center justify-content-center mx-auto align-height primary-font font-md mt-1 mb-1 align-items-center" >
+        <div class="col-10 col-md-10 col-xl-8 col-xxl-6" >Q.{{ question.question_number }}: {{ question.question }}</div>
+    </div>
+
+    <!-- answer 1 and 2 -->
+    <div class="form-row row text-center justify-content-center align-items-center mx-auto align-height mt-4" >
+        <!-- answer 1 -->
+        {% if question.answer_1|length > 0 %}
+            <div class="col-11 col-xs-8 col-md-10 col-lg-5 col-xl-4 col-xxl-4 mt-2 mb-0 pt-0 pb-0 justify-content-center align-items-center answer-container answer-1
+                            ms-0 me-lg-2"  id="answer-1-container" data-shape="rounded-pill">
+                <div  class="form-row row justify-content-center align-items-center answer-row" >
+                    <div class="col-1 font-colour-white ms-0 me-0">A1:</div>
+                    <div class="col-8 ms-0 me-0 ps-0 pe-0">
+                        <div id="div_id_answer_1" class="form-group {{ answer_text_size }} primary-font font-colour-white ms-0 me-0 ps-0 pe-0">
+                            {{ question.answer_1}}
+                        </div>
+                    </div>
+                    <button id="correct_answer_1" type="button" class="col-2 answer-button answer-1 text-right far
+                            {% if question.correct_answer_1 == True %}fa-check-circle{% else %}fa-circle{% endif %} fa-2x ms-0 me-0"
+                            data-state={{ question.correct_answer_1 }}>
+                    </button>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- answer 2 -->
+        <div class="col-11 col-xs-8  col-xs-8 col-md-10 col-lg-5 col-xl-4 col-xxl-4 mt-2 mb-0 pt-0 pb-0 justify-content-center align-items-center answer-container answer-2
+                        me-0 ms-lg-2"  id="answer-2-container" data-shape="rounded-pill">
+            <div  class="form-row row justify-content-center align-items-center answer-row" >
+                <div class="col-1 font-colour-white ms-0 me-0">A2:</div>
+                <div class="col-8 ms-0 me-0 ps-0 pe-0">
+                    <div id="div_id_answer_2" class="form-group {{ answer_text_size }} primary-font font-colour-white ms-0 me-0 ps-0 pe-0">
+                        {{ question.answer_2}}
+                    </div>
+                </div>
+                <button {% if question.answer_2|length == 0 %}disabled{% endif %}
+                        id="correct_answer_2" type="button" class="col-2 answer-button answer-2 text-right far
+                        {% if question.correct_answer_2 == True %}fa-check-circle{% else %}fa-circle{% endif %} fa-2x ms-0 me-0"
+                        data-state={{ question.correct_answer_2 }}>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- answer 3 and 4 -->
+    <div class="form-row row text-center justify-content-center mx-auto align-items-center align-height" >
+        <!-- answer 3 -->
+        <div class="col-11 col-xs-8  col-md-10 col-lg-5 col-xl-4 col-xxl-4  mt-2 mb-0 pt-0 pb-0 justify-content-center align-items-center answer-container answer-3
+                        ms-0 me-lg-2" id="answer-3-container" data-shape="rounded-pill">
+            <div  class="form-row row justify-content-center align-items-center answer-row" >
+                <div class="col-1 font-colour-white ms-0 me-0">A3:</div>
+                <div class="col-8 ms-0 me-0 ps-0 pe-0">
+                    <div id="div_id_answer_3" class="form-group {{ answer_text_size }} primary-font font-colour-white ms-0 me-0 ps-0 pe-0">
+                        {{ question.answer_3}}
+                    </div>
+                </div>
+                <button {% if question.answer_3|length == 0 %}disabled{% endif %}
+                        id="correct_answer_3" type="button" class="col-2 answer-button answer-3 text-right far
+                        {% if question.correct_answer_3 == True %}fa-check-circle{% else %}fa-circle{% endif %} fa-2x ms-0 me-0"
+                        data-state={{ question.correct_answer_3 }}>
+                </button>
+            </div>
+        </div>
+
+        <!-- answer 4 -->
+        <div class="col-11 col-xs-8  col-md-10 col-lg-5 col-xl-4 col-xxl-4 mt-2 mb-0 pt-0 pb-0 justify-content-center align-items-center answer-container answer-4
+                        me-0 ms-lg-2"  id="answer-4-container" data-shape="rounded-pill">
+            <div  class="form-row row justify-content-center align-items-center answer-row" >
+                <div class="col-1 font-colour-white ms-0 me-0">A4:</div>
+                <div class="col-8 ms-0 me-0 ps-0 pe-0">
+                    <div id="div_id_answer_4" class="form-group {{ answer_text_size }} primary-font font-colour-white ms-0 me-0 ps-0 pe-0">
+                        {{ question.answer_4}}
+                    </div>
+                </div>
+                <button {% if question.answer_4|length == 0 %}disabled{% endif %}
+                        id="correct_answer_4" type="button" class="col-2 answer-button answer-4 text-right far
+                        {% if question.correct_answer_4 == True %}fa-check-circle{% else %}fa-circle{% endif %} fa-2x ms-0 me-0"
+                        data-state={{ question.correct_answer_4 }}>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,34 @@
+{% extends "synaptic/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+
+    <div class="top-page-element mt-5 mb-5"
+         data-state="{% if show_navbar %}show{% else %}hide{% endif %}"></div>
+
+    <div id="message_bar" class="alert {% if message.message_type == 'success' %}alert-success{% else %}alert-danger{% endif %} primary-font text-center fixed-bottom"
+         role="alert" {% if message.message|length == 0 %}hidden{% endif %}>
+        {{message.message}}
+    </div>
+
+    <div id="overview" class='container d-flex align-items-center primary-font col-md-10 mt-5 navbar-on'>
+        <div class='row d-flex flex-column flex-lg-row text-center mb-5'>
+            <div class="col d-flex flex-column col-8 col-md-6 justify-content-center mx-auto">
+                <img class="logo img-fluid w-md-100" src="{% static '/synaptic/synaptic.png' %}" alt="Synaptic logo">
+            </div>
+            <div class="col d-flex flex-column justify-content-center mx-auto" >
+                <h1 class="display-4 display-md-3 text-center mt-5 mb-3">Welcome to MyQuize</h1>
+                <div class="fs-3">an engaging multiplayer quiz game where players compete in real-time for the highest score!</div>
+            </div>
+        </div>
+    </div>
+<script>
+    $(document).ready(function(){
+        var overview = document.querySelector("#overview");
+        gsap.from(overview, {scaleX: 0, scaleY: 0, duration:2});
+    });
+</script>
+
+{% endblock %}
+

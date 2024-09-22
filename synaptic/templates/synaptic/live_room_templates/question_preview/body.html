@@ -1,0 +1,31 @@
+{% load static %}
+<div id='content-container-inner' class='mt-2 mb-4'>
+    <div class="row col-12 ms-0 me-0 align-items-center">
+        <div class="col-md-4 mt-0 mt-md-2"></div>
+        <div class="col-md-4 mt-2">
+            <div id="countdown" class="countdown-preview text-center mx-auto">{{ time_limit }}</div>
+        </div>
+        <div class="col-md-4 mt-0 mt-md-2"></div>
+    </div>
+    <div class="row animation text-center justify-content-center mx-auto">
+        <h2 class="mt-5">{{ question.question }}</h2>
+    </div>
+    <div class="row col-6 col-lg-4 mt-5 text-center justify-content-center align-items-center mx-auto">
+        {% if question.score_multiplier != 1 %}
+            <div class="row col-12 col-md-6 text-center justify-content-center align-items-center mx-auto">
+                <div class="score-multiplier">{{ score_multiplier }}x</div>
+                <div class="primary-font font-colour-ter font-lg">Points</div>
+            </div>
+        {% endif %}
+        <div id='joker-container' class="row col-12 col-md-6 text-center justify-content-center align-items-center mx-auto d-none">
+            <button id='joker-button' type="button"
+                    class="row btn joker-button ms-0 me-0 ps-0 pe-0" onclick="sendJoker(this)"
+                    data-status="false">
+                <img class="border-0 joker-image" src="{% static 'synaptic/joker_unselected.png' %}">
+            </button>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,241 @@
+{% extends "synaptic/layout.html" %}
+{% load static %}
+
+{% block stylesheets %}
+    <link href="{% static 'synaptic/styles_answer_buttons.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<h2 style="text-align:center" class="top-page-element mt-2 mb-3 top-body-element navbar-off"
+    data-state="{% if show_navbar %}show{% else %}hide{% endif %}">{{ title }}</h2>
+
+    <div id="message_bar" class="alert {% if message.message_type == 'success' %}alert-success{% else %}alert-danger{% endif %} text-center fixed-bottom"
+         role="alert" {% if message.message|length == 0 %}hidden{% endif %}>
+        {{message.message}}
+    </div>
+
+<form id="question_form"  class="primary-font" method="post" enctype="multipart/form-data"
+      onchange="formChange()">
+    {% csrf_token %}
+
+    <!-- # question text -->
+    <div  class="form-row row text-center justify-content-center mx-auto align-height mt-1 mb-1 align-items-center" >
+        <div class="col-10 col-md-10 col-xl-8 col-xxl-6" >
+            <div class="form-group">
+                {{ form.question }}
+            </div>
+            <p id="id_question_error" class="error-field mt-0 mb-0"></p>
+        </div>
+    </div>
+
+    <!-- media url and transition type -->
+    <div class="form-row row text-center justify-content-center mx-auto align-height mt-1 mb-1 align-items-start" >
+        <div class="col-10 col-md-10 col-lg-7 col-xl-5 col-xxl-4" >
+            <div class="form-group">
+                {{ form.media_url }}
+                <p id="id_media_url_error" class="error-field mt-0 mb-0"></p>
+            </div>
+        </div>
+        <div class="col-10 col-md-10 col-lg-3 col-xl-3 col-xxl-2" >
+            <div class="form-group">
+                {{ form.transition_type }}
+                <p id="id_transition_type_error" class="error-field mt-0 mb-0"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- # media upload, time limit and score multiplier -->
+    <div  class="form-row text-md col-10 col-xl-8 col-xxl-6 row text-center justify-content-center mx-auto align-height mt-2 mb-2 ml-0 mr-0 pl-1 pr-1" >
+        <!-- media upload -->
+        <div class="col-6 justify-content_center pl-0 pr-1 ml-0 mr-0">
+            <div id="dropbox" class="col-12 justify-content_center border dropbox file-dropzone dropzone h-100 ml-0 mr-0">
+                <input type="file" name="file_upload" class="file-upload"
+                       style="display: none" accept="images/*"
+                       onchange="receiveFiles(this, '#file_upload', '#file_text', '#file_button')"
+                       id="file_upload">
+                <div class="row justify-content-center h-100">
+                    <div class="col-11 ml-2 mr-2 mb-2"
+                         ondrop="dropFile(event, this, '#file_upload', '#file_text', '#file_button')">
+                        <div id='file_text' class="row-12 mt-2 align-self-start">Select media file using button or drag-drop</div>
+                        <button id='file_button' type='button'
+                                class='row-12 btn btn-primary upload_submit mt-4 mb-0 ml-2 mr-2'
+                                onclick="fileButtonClick('#file_upload', '#file_text', '#file_button')"
+                        >Add Media
+                        </button>
+                    </div>
+                </div>
+                <p id="id_media_file_error" class="error-field mt-0 mb-0"></p>
+            </div>
+        </div>
+        <!-- time limit and score multiplier -->
+        <div class="row col-6 justify-content_center ms-0 me-0">
+            <div class="col-12 justify-content_center align-items-center border rounded h-100">
+                <div class="row form-row justify-content-center align-items-center">
+                    <div class='col-md-5'>Time Limit (secs)</div>
+                    <div class="col-md-3" >
+                        <div id="div_id_time_limit1" class="form-group">
+                            {{ form.time_limit}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-row justify-content-center align-items-center" >
+                    <p id="id_time_limit_error" class="error-field mt-0 mb-0"></p>
+                </div>
+                <div class="row form-row justify-content-center align-items-center" >
+                    <div class='col-md-5 label'>Score Multiplier</div>
+                    <div class="col-md-3" >
+                        <div id="div_id_score_multiplier1" class="form-group">
+                            {{ form.score_multiplier}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-row justify-content-center align-items-center" >
+                    <p id="id_score_multiplier_error" class="error-field mt-0 mb-0"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- answer 1 and 2 -->
+    <div class="form-row row text-center justify-content-center align-items-center mx-auto align-height" >
+        <!-- answer 1 -->
+        <div class="col-11 col-xs-8 col-md-10 col-lg-5 col-xl-4 col-xxl-3 mt-2 mb-0 pt-0 pb-0 justify-content-center align-items-center answer-container answer-1
+                        ms-0 me-lg-2"  id="answer-1-container">
+            <div  class="row form-row justify-content-center align-items-center answer-row" >
+                <div class="col-1 font-colour-white ms-0 me-0">A1:</div>
+                <div class="col-8 ms-0 me-0 ps-0 pe-0">
+                    <div id="div_id_answer_1" class="form-group ms-0 me-0 ps-0 pe-0">
+                        {{ form.answer_1}}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button id="button_1_correct" type="button" class="answer-button answer-1 text-right far
+                            {% if form.correct_answer_1.value == True %}fa-check-circle{% else %}fa-circle{% endif %} fa-2x ms-0 me-0"
+                            data-checkbox="#id_correct_answer_1">
+                    </button>
+                </div>
+                <div class="position-absolute" hidden>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            {{ form.correct_answer_1 }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- answer 2 -->
+        <div class="col-11 col-xs-8  col-xs-8 col-md-10 col-lg-5 col-xl-4 col-xxl-3 mt-2 mb-0 pt-0 pb-0 justify-content-center align-items-center answer-container answer-2
+                        me-0 ms-lg-2"  id="answer-2-container" data-shape="rounded-pill">
+            <div  class="row form-row justify-content-center align-items-center answer-row" >
+                <div class="col-1 font-colour-white ms-0 me-0">A2:</div>
+                <div class="col-8 ms-0 me-0 ps-0 pe-0">
+                    <div id="div_id_answer_2" class="form-group ms-0 me-0 ps-0 pe-0">
+                        {{ form.answer_2}}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button id="button_2_correct" type="button" class="answer-button answer-2 text-right far
+                            {% if form.correct_answer_2.value == True %}fa-check-circle{% else %}fa-circle{% endif %} fa-2x ms-0 me-0"
+                            data-checkbox="#id_correct_answer_2">
+                    </button>
+                </div>
+                <div class="position-absolute" hidden>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            {{ form.correct_answer_2 }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- answer 1 and 2 errors -->
+    <div class="form-row row text-center justify-content-center align-items-center mx-auto align-height" >
+        <!-- answer 1 error -->
+        <div class="col-11 col-xs-8 col-md-10 col-lg-5 col-xl-4 col-xxl-3 mt-0 mb-0 pt-0 pb-0 justify-content-center align-items-center ms-0 me-lg-2">
+            <p id="id_answer_1_error" class="error-field mt-0 mb-0"></p>
+        </div>
+
+        <!-- answer 2 error -->
+        <div class="col-11 col-xs-8  col-xs-8 col-md-10 col-lg-5 col-xl-4 col-xxl-3 mt-0 mb-0 pt-0 pb-0 justify-content-center align-items-center me-0 ms-lg-2">
+            <p id="id_answer_2_error" class="error-field mt-0 mb-0"></p>
+        </div>
+    </div>
+
+
+    <!-- answer 3 and 4 -->
+    <div class="form-row row text-center justify-content-center mx-auto align-items-center align-height" >
+        <!-- answer 3 -->
+        <div class="col-11 col-xs-8  col-md-10 col-lg-5 col-xl-4 col-xxl-3  mt-2 mb-0 pt-0 pb-0 justify-content-center align-items-center answer-container answer-3
+                        ms-0 me-lg-2" id="answer-3-container" data-shape="rounded-pill">
+            <div  class="row form-row justify-content-center align-items-center answer-row" >
+                <div class="col-1 font-colour-white ms-0 me-0">A3:</div>
+                <div class="col-8 ms-0 me-0 ps-0 pe-0">
+                    <div id="div_id_answer_3" class="form-group ms-0 me-0 ps-0 pe-0">
+                        {{ form.answer_3}}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button id="button_3_correct" type="button" class="answer-button answer-3 text-right far
+                            {% if form.correct_answer_3.value == True %}fa-check-circle{% else %}fa-circle{% endif %} fa-2x ms-0 me-0"
+                            data-checkbox="#id_correct_answer_3">
+                    </button>
+                </div>
+                <div class="position-absolute" hidden>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            {{ form.correct_answer_3 }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- answer 4 -->
+        <div class="col-11 col-xs-8  col-md-10 col-lg-5 col-xl-4 col-xxl-3 mt-2 mb-0 pt-0 pb-0 justify-content-center align-items-center answer-container answer-4
+                        me-0 ms-lg-2"  id="answer-4-container" data-shape="rounded-pill">
+            <div  class="row form-row justify-content-center align-items-center answer-row" >
+                <div class="col-1 font-colour-white ms-0 me-0">A4:</div>
+                <div class="col-8 ms-0 me-0 ps-0 pe-0">
+                    <div id="div_id_answer_4" class="form-group ms-0 me-0 ps-0 pe-0">
+                        {{ form.answer_4}}
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button id="button_4_correct" type="button" class="answer-button answer-4 text-right far
+                            {% if form.correct_answer_4.value == True %}fa-check-circle{% else %}fa-circle{% endif %} fa-2x ms-0 me-0"
+                            data-checkbox="#id_correct_answer_4">
+                    </button>
+                </div>
+                <div class="position-absolute" hidden>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            {{ form.correct_answer_4 }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- answer 3 and 4 errors -->
+    <div class="form-row row text-center justify-content-center align-items-center mx-auto align-height" >
+        <!-- answer 3 error -->
+        <div class="col-11 col-xs-8 col-md-10 col-lg-5 col-xl-4 col-xxl-3 mt-0 mb-0 pt-0 pb-0 justify-content-center align-items-center ms-0 me-lg-2">
+            <p id="id_answer_3_error" class="error-field mt-0 mb-0"></p>
+        </div>
+
+        <!-- answer 4 error -->
+        <div class="col-11 col-xs-8  col-xs-8 col-md-10 col-lg-5 col-xl-4 col-xxl-3 mt-2 mb-2 pt-0 pb-0 justify-content-center align-items-center me-0 ms-lg-2">
+            <p id="id_answer_4_error" class="error-field mt-0 mb-0"></p>
+        </div>
+    </div>
+
+</form>
+
+<script src="{% static 'synaptic/question.js' %}"></script>
+
+{% endblock %}
+

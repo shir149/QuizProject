@@ -1,0 +1,27 @@
+<div id='content-container-inner' class='mt-2 mb-4'>
+    <div class="row text-center justify-content-center mx-auto">
+            <h2>Leader Board</h2>
+    </div>
+    <div id="leaderboard-container" class="container leaderboard-container position-relative col-md-12 text-center justify-content-center ms-0 ms-0 mx-auto mt-2">
+        {% for row in rows %}
+            <div id="row-{{ forloop.counter0 }}" class="row leader-row position-relative">
+                <div class="col-md-4 col-lg-4"></div>
+                <div id="name-{{forloop.counter0}}" class="col-6 col-sm-6 col-md-4 col-lg-4 leader-name"></div>
+                <div id="score-{{forloop.counter0}}" class="col-3 col-sm-2 col-md-2 col-lg-1 leader-score"></div>
+                <div id="added-{{forloop.counter0}}" class="col-2 col-sm-2 col-md-2 col-lg-2 leader-added"></div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if room.current_question.question_number == room.last_question.question_number %}
+    <div id="final_leaderboard" class="text-center mt-5">
+        Final Score
+    </div>
+
+    <div class='container col-10 col-md-6'>
+        <div class="text-center mt-4" style="width:50%;height:0;padding-bottom:50%;position:relative;"><iframe src="https://giphy.com/embed/l2JhL1AzTxORUTDlC" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p class="text-center" ><a href="https://giphy.com/gifs/nba-dance-dancing-l2JhL1AzTxORUTDlC">via GIPHY</a></p>
+    </div>
+    {% endif %}
+</div>
+
+
+

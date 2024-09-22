@@ -1,0 +1,54 @@
+{% extends "synaptic/layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+    <h1 class="text-center top-body-element top-page-element"
+        data-state="{% if show_navbar %}show{% else %}hide{% endif %}">{{ title }}</h1>
+
+    {% crispy form %}
+
+    {% if room_members %}
+        <h5 style="text-align:center" class="primary-font font-weight-bold mt-5 mb-3">Previous Rooms Joined</h5>
+
+        <div></div>
+
+        <div class="row font-weight-bold ms-0 me-0 primary-font justify-content-center mx-auto">
+            <div class="col-6 col-sm-2 col-md-3 col-lg-3 col-xl-2 col-xxl-2 text-center ms-0 me-0">Room</div>
+            <div class="col-6 col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 text-center ms-0 me-0">Joined</div>
+            <div class="col-6 col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 text-center text-sm-center ms-0 me-0">Nickname</div>
+            <div class="col-6 col-sm-3 col-md-2 col-lg-2 col-xl-2 col-xxl-1 text-center text-sm-center ms-0 me-0">Host</div>
+            <div class="col-0 col-sm-auto d-none d-sm-block text-center ms-0 me-0 invisible">
+                <button type="submit" name="submit" value="Select" class="far fa-hand-pointer icon-button" disabled>
+                </button>
+            </div>
+        </div>
+
+        {% for room_member in room_members %}
+            <div id="id_row_{{room_member.room.room_number}}" class="row ms-0 ms-0 mt-2 primary-font font-weight-normal mx-auto justify-content-center">
+                <div id="id_room_number_{{room_member.room.room_number}}"
+                     class="col-6 col-sm-2 col-md-3 col-lg-3 col-xl-2 col-xxl-2 text-center ms-0 me-0">
+                     {{ room_member.room.room_number}}</div>
+                <div class="col-6 col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 text-center ms-0 me-0">
+                    {{ room_member.joined_date|date:"Y/m/d H:i" }}</div>
+                <div id="id_nickname_{{room_member.room.room_number}}"
+                     class="col-6 col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 ms-0 me-0 text-center">
+                     {{ room_member.nickname }}</div>
+                <div class="col-6 col-sm-3 col-md-2 col-lg-2 col-xl-2 col-xxl-1 ms-0 me-0 text-center">
+                     {{ room_member.room.host.username }}</div>
+                <div class="col-auto text-center ms-0 me-0">
+                    <button type="submit" name="submit" value="Select" class="far fa-hand-pointer icon-button"
+                            data-room_number={{room_member.room.room_number}}
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="Select"
+                            onclick="selectSubmit(event, this)">
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+
+    {% endif %}
+
+    <script src="{% static 'synaptic/join_room.js' %}"></script>
+
+{% endblock %}
+

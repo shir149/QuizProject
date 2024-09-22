@@ -1,0 +1,9 @@
+<div id='content-container-inner' class='mt-4'>
+    {% for member in members %}
+        <div class='row ml-2 mr-2 mt-2 justify-content-center'>
+            {{ member.nickname }} has {{member.status.description }} the room
+        </div>
+    {% endfor %}
+</div>
+
+

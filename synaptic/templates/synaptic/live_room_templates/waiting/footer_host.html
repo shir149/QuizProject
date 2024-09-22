@@ -1,0 +1,19 @@
+<div id='content-container-inner' class='mt-5'>
+    <div class="row col-12 ms-0 me-0 auto-mx justify-content-center align-items-center">
+        <div class="col-auto text-center justify-content-center text-center mt-5 ms-2 me-2">
+            <button id='start-quiz-button' type="button" class="btn mt-2 fa-button-pri far fa-play-circle fa-3x ms-0 me-0"
+                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="{% if hide_restart %}Start Quiz{% else %}Resume Quiz{% endif %}"
+                    onclick="sendElement(this)">
+            </button>
+        </div>
+        <div {% if hide_restart %}hidden{% endif %} class="col-auto text-center justify-content-center text-center mt-5 ms-2 me-2">
+            <button id='restart-quiz-button' type="button" class="btn mt-2 fa-button-pri fas fa-redo fa-3x ms-0 me-0"
+                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Restart From..."
+                    onclick="sendElement(this)">
+            </button>
+        </div>
+    </div>
+</div>
+
+

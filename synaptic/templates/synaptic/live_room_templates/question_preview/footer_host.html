@@ -1,0 +1,23 @@
+<div id='content-container-inner'>
+    {% if button_text != "" %}
+        <div class="text-center mt-5">
+            <button id='start-quiz-button' type="button" class="btn btn-primary mt-5" onclick="sendElement(this)">{{ button_text }}</button>
+        </div>
+    {% endif %}
+
+
+    {% if room.preview %}
+        <div class="row col-xl-6 justify-content-center mx-auto">
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-3 col-xxl-3 text-center ms-1 me-1 mb-2 mb-md-0">
+                <button id='preview-skip-button' type="button"
+                        class="row btn btn-primary" onclick="sendElement(this)">Preview Skip</button>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-3 col-xxl-3 text-center ms-1 me-1 mt-2 mt-md-0">
+                <button id='preview-done-button' type="button"
+                        class="row btn btn-primary" onclick="sendElement(this)">Preview Done</button>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+

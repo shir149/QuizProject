@@ -1,0 +1,58 @@
+{% extends "synaptic/layout.html" %}
+{% load static %}
+
+{% block stylesheets %}
+    <link href="{% static 'synaptic/styles_answer_buttons.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div id="nickname" class="position-absolute" hidden>{{nickname}}</div>
+    <div id="content-container-header-outer" class="container top-page-element"
+         data-state="{% if show_navbar %}show{% else %}hide{% endif %}">
+        <div id="content-container-header-inner" class="row"></div>
+    </div>
+
+    <div id="content-container-body-outer" class="container">
+        <div id="content-container-body-inner" class="row"></div>
+    </div>
+<script>
+    function sendAnswerButton(element) {
+        //$(".answer-btn").attr("disabled", "disabled");
+        var answerButtons = document.querySelectorAll('.answer-btn')
+        answerButtons.forEach(button => {
+            if (button == element) {
+                button.style.setProperty("border-color", "var(--tertiary-colour)", "important");
+            } else {
+                button.style.borderColor = "#ffffff";
+            }
+        })
+
+        var data = {
+            "type": "answer",
+            "value": element.dataset.buttonNumber
+        };
+        socket.send(JSON.stringify(data));
+    }
+
+    function sendJoker(element) {
+        console.log("sending joker");
+        hideTooltip(element);
+        var image = element.querySelector(".joker-image");
+        if (element.dataset.status == "false") {
+            element.dataset.status = "true";
+            image.src="/static/synaptic/joker_selected.png";
+        } else {
+            element.dataset.status = "false";
+            image.src="/static/synaptic/joker_unselected.png";
+        }
+        var data = {
+            "type": element.id,
+            "value": element.dataset.status
+        }
+        socket.send(JSON.stringify(data));
+    }
+</script>
+<script src="{% static 'synaptic/live_room_sockets.js' %}"></script>
+{% endblock %}
+
+

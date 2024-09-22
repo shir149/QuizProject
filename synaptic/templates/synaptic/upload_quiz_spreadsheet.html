@@ -1,0 +1,65 @@
+{% extends "synaptic/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="row top-page-element text-center justify-content-center mx-auto mb-2 top-body-element navbar-off"
+         data-state="{% if show_navbar %}show{% else %}hide{% endif %}">
+        <h2>Upload for: {{ quiz.title }}</h2>
+    </div>
+
+    <div id="message_bar" class="alert {% if message.message_type == 'success' %}alert-success{% else %}alert-danger{% endif %} text-center fixed-bottom"
+         role="alert" {% if message.message|length == 0 %}hidden{% endif %}>
+        {{message.message}}
+    </div>
+
+    <form id="upload_files_form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container text-center justify-content-center mx-auto ps-0 pe-0">
+            <div class="row mb-2 justify-content-center">
+                <div class="column col-lg-5 border mb-3 me-1 ms-1">
+                    <div class="row justify-content-center">
+                        <div id="intro-excel" class="col-md-10 mt-3">
+                            Select Excel file using button or drag-drop into the area below</div>
+                    </div>
+                    {{ form.file_upload_excel }}
+                    <button id="xl_file_select" type="button"
+                            class="btn btn-primary upload_submit mt-2 mb-2 ms-2 me-2"
+                            onclick="fileUploadExcel.click()">
+                        Select Excel File</button>
+                    <button id="clear_excel" class="btn btn-primary mt-2 mb-2 ms-2 me-2" type="button"
+                            onclick="clearExcel()">
+                        Clear</button>
+                    <div class="row justify-content-center">
+                        <div id="xl_dropbox" class="col col-md-10 border dropbox file-dropzone dropzone ms-2 me-2 mb-2"></div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div id="id_file_upload_excel_error" class="col col-md-10 error-field ms-2 me-2 mb-2"></div>
+                    </div>
+                </div>
+                <div class="column col-lg-5 border mb-3 ms-1 me-1">
+                    <div class="row justify-content-center">
+                        <div id="intro-media" class="col-md-10 mt-3">
+                            Select media files using button or drag-drop into the area below</div>
+                    </div>
+                    {{ form.file_upload_media }}
+                    <button id="media_file_select" type="button"
+                            class="btn btn-primary upload_submit mt-2 mb-2 ms-2 me-2"
+                            onclick="fileUploadMedia.click()">
+                        Select Media Files</button>
+                    <button id="clear_media" class="btn btn-primary mt-2 mb-2 ms-2 me-2" type="button"
+                            onclick="clearMedia()">
+                        Clear</button>
+                    <div class="row justify-content-center">
+                        <div id="media_dropbox" class="col col-md-10 border dropbox file-dropzone dropzone ms-2 me-2 mb-2"></div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div id="id_file_upload_media_error" class="col col-md-10 error-field ms-2 me-2 mb-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script src="{% static 'synaptic/file_handling.js' %}"></script>
+{% endblock %}
+

@@ -1,0 +1,111 @@
+{% extends "synaptic/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2 style="text-align:center" class="top-page-element mt-2 mb-3"
+        data-state="{% if show_navbar %}show{% else %}hide{% endif %}">{{ heading }}</h2>
+
+    {% if questions %}
+        <p style="text-align:center" class="colour-secondary mb-0"><i>Drag and drop to re-order</i></p>
+        <p style="text-align:center" class="colour-secondary mt-0"><i>For mobile use hold and drag</i></p>
+    {% endif %}
+
+    <div id="message_bar" class="alert {% if message.message_type == 'success' %}alert-success{% else %}alert-danger{% endif %} text-center fixed-bottom"
+         role="alert" {% if message.message|length == 0 %}hidden{% endif %}>
+        {{message.message}}
+    </div>
+
+    <form>
+        {% csrf_token %}
+    </form>
+
+    {% if questions %}
+        <div class="container text-md mr-0 ml-0 mt-3 mx-auto justify-content-center">
+            <div class="row font-weight-bold ms-2 me-2 mx-auto justify-content-center">
+                <div class="col-1 col-lg-1 colour-secondary text-center">#</div>
+                <div class="col-10 col-sm-7 col-md-6 col-lg-7 text-center text-sm-start colour-secondary">Question</div>
+                <div class="col-1 d-sm-none"></div>
+                <div class="row col-10 col-sm-4 col-md-5 col-lg-4 mx-auto justify-content-center align-items-start">
+                    <div class="col-12 col-sm-12 col-md-6 colour-secondary text-center">Status</div>
+                    <div class="col-12 col-sm-12 col-md-6"></div>
+                </div>
+            </div>
+            {% for question in questions %}
+                <form method="post" class="draggable" draggable="true">
+                    {% csrf_token %}
+                    <div class="row ms-2 me-2 mt-2 row-container primary-font mx-auto justify-content-center">
+                        <input class="position-absolute question-id" type="hidden" name="question_id"
+                               disabled="disabled" value={{ question.id }}></input>
+                        <div class="col-1 col-lg-1 question-number text-center">{{ question.question_number}}</div>
+                        <div class="col-10 col-sm-7 col-md-6 col-lg-7 text-center text-sm-start">{{ question.question}}</div>
+                        <div class="col-1 d-sm-none"></div>
+                        <div class="row col-10 col-sm-4 col-md-5 col-lg-4 mx-auto justify-content-center align-items-start">
+                            <div class="col-12 col-sm-12 col-md-6 text-center">{{ question.status.description}}</div>
+                            <div class="col-12 col-sm-12 col-md-6 text-center">
+                                <button type="submit" name="submit" value="Update"
+                                        class="fas fa-edit icon-button ps-2 pe-2"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Update"
+                                        onclick="buttonSubmit(event, this)">
+                                </button>
+                                <button type="submit" name="submit" value="Preview"
+                                        class="fas fa-search icon-button ps-2 pe-2
+                                        {% if question.status.description != 'Ready' %}faded{% endif %}"
+                                        {% if question.status.description != 'Ready' %}disabled{% endif %}
+                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Preview"
+                                        onclick="buttonSubmit(event, this)">
+                                </button>
+                                <button type="submit" name="submit" value="Delete"
+                                        class="fas fa-trash icon-button ps-2 pe-2"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"
+                                        onclick="deleteButton(event, this)">
+                                </button>
+                            </div>
+                        </div>
+                        {% if question.answer_1|length > 0 or question.answer_2|length > 0 %}
+                            <div class="col-12 hideable" hidden>
+                                <div class="row col-12 col-sm-10 mx-auto">
+                                    <div class="col-12 col-md-6 text-center text-sm-start
+                                        {% if question.correct_answer_1 %}font-colour-sec{% else %}font-colour-red{% endif %}">
+                                        {% if question.answer_1|length > 0 %}1. {{ question.answer_1 }}{% endif %}
+                                    </div>
+                                    <div class="col-12 col-md-6 text-center text-sm-start
+                                        {% if question.correct_answer_2 %}font-colour-sec{% else %}font-colour-red{% endif %}">
+                                        {% if question.answer_2|length > 0 %}2. {{ question.answer_2 }}{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if question.answer_3|length > 0 or question.answer_4|length > 0 %}
+                            <div class="col-12 hideable" hidden>
+                                <div class="row col-12 col-sm-10 mx-auto">
+                                    <div class="col-12 col-md-6 text-center text-sm-start
+                                        {% if question.correct_answer_3 %}font-colour-sec{% else %}font-colour-red{% endif %}">
+                                        {% if question.answer_3|length > 0 %}3. {{ question.answer_3 }}{% endif %}
+                                    </div>
+                                    <div class="col-12 col-md-6 text-center text-sm-start
+                                        {% if question.correct_answer_4 %}font-colour-sec{% else %}font-colour-red{% endif %}">
+                                        {% if question.answer_4|length > 0 %}4. {{ question.answer_4 }}{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="col-12 hideable" hidden>
+                            <div class="row col-12 col-sm-10  mx-auto text-center text-sm-start">
+                                <div class="col-12 col-sm-6 col-md-6 ">Time-limit: {{ question.time_limit }}s</div>
+                                <div class="col-12 col-sm-6 col-md-6 ">Score Multiplier: {{ question.score_multiplier|floatformat }}x</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-md text-center">No questions found for quiz {{ quiz.title }}</div>
+    {% endif %}
+
+    <div class="mt-5 mb-5"></div><br>
+
+    <script src="{% static 'synaptic/list_questions.js' %}"></script>
+
+{% endblock %}
+

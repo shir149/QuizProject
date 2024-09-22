@@ -1,0 +1,19 @@
+<div id='content-container-inner'>
+    {% if room.current_question.question_number != room.last_question.question_number %}
+<!--        <div class="text-center mt-2">-->
+<!--            <button id='next-question-button' type="button" class="btn btn-primary mt-5" onclick="sendElement(this)">Next Question</button>-->
+<!--        </div>-->
+        <div class="col-auto text-center justify-content-center text-center mt-2 ms-2 me-2">
+            <button id='next-question-button' type="button" class="btn mt-2 fa-button-pri fas fa-step-forward fa-3x ms-0 me-0"
+                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Next Question"
+                    onclick="sendElement(this)">
+            </button>
+        </div>
+
+    {% endif %}
+
+<!--    <div class='container col-6'>-->
+<!--        <div class="text-center mt-4" style="width:50%;height:0;padding-bottom:50%;position:relative;"><iframe src="https://giphy.com/embed/l2JhL1AzTxORUTDlC" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p class="text-center" ><a href="https://giphy.com/gifs/nba-dance-dancing-l2JhL1AzTxORUTDlC">via GIPHY</a></p>-->
+<!--    </div>-->
+</div>
+

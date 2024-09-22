@@ -1,0 +1,11 @@
+<div id='content-container-header-inner' class='mt-4'>
+    {% if user_type == "host" %}
+        <h1 class='text-center'>Host Quiz: {{ room.quiz.title }}</h1>
+        <h2 class='text-center'>Room Number: {{ room.room_number }}</h2>
+        <h4 class='text-center'>Waiting for quizzers to join...</h4>
+    {% else %}
+        <h1 class='text-center'>Quiz: {{ room.quiz.title }}</h1>
+    {% endif %}
+</div>
+
+

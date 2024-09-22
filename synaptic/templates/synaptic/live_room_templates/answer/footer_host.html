@@ -1,0 +1,29 @@
+<div id='content-container-inner' class='mt-2'>
+    <div class="row col-12 ms-0 me-0 auto-mx justify-content-center align-items-center">
+        {% if room.preview %}
+            {% if room.current_question.question_number != room.last_question.question_number %}
+                <div class="col-lg-3 col-xl-2 text-center justify-content-center text-center">
+                    <button id='preview-next-button' type="button" class="btn btn-primary mt-2 mb-2 ms-2 me-2" onclick="sendElement(this)">Preview Next</button>
+                </div>
+            {% endif %}
+
+            <div class="col-lg-3 col-xl-2 text-center justify-content-center text center">
+                <button id='preview-done-button' type="button" class="btn btn-primary mt-2 mb-2 ms-2 me-2" onclick="sendElement(this)">Preview Done</button>
+            </div>
+        {% else %}
+            <div class="col-auto text-center justify-content-center text-center mt-2 ms-2 me-2">
+                <button id='results-button' type="button" class="btn mt-2 fa-button-pri fas fa-step-forward fa-3x ms-0 me-0"
+                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="See Results"
+                        onclick="sendElement(this)">
+                </button>
+            </div>
+            <div class="col-auto text-center justify-content-center text-center mt-2 ms-2 me-2">
+                <button id='amend-answer-button' type="button" class="btn mt-2 fa-button-pri fas fa-wrench fa-3x ms-0 me-0"
+                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Amend Correct Answer"
+                        onclick="sendElement(this)">
+                </button>
+            </div>
+        {% endif %}
+    </div>
+</div>
+

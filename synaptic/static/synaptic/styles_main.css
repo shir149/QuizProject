@@ -1,0 +1,132 @@
+:root {
+  --primary-colour: #4E2683;
+  --secondary-colour: #006633;
+  --tertiary-colour: #004131;
+  --answer-1-colour: #e21b3c;
+  --answer-2-colour: #1368ce;
+  --answer-3-colour: #d89e00;
+  --answer-4-colour: #26890C;
+  --error-colour: red;
+  --font-family: 'Acme';
+  --font-size-extra-large: 2em;
+  --font-size-large: 1.5em;
+  --font-size-medium: 1.2em;
+  --font-size-small: 1.1em;
+
+}
+
+.my-row {
+    border: 1px dotted grey;
+}
+.my-col {
+    border: 2px solid red;
+}
+
+.primary-font {
+    font-family: var(--font-family);
+}
+
+.primary-font:focus {
+    font-family: var(--font-family);
+}
+
+.font-colour-pri {
+    color: var(--primary-colour);
+}
+
+.font-colour-pri:focus {
+    color: var(--primary-colour);
+}
+
+.font-weight-normal {
+    font-weight: normal;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+
+.font-colour-sec {
+    color: var(--secondary-colour);
+}
+
+.font-colour-ter {
+    color: var(--tertiary-colour);
+}
+
+.font-colour-white {
+    color: #ffffff;
+}
+
+.font-colour-green {
+    color: green;
+}
+
+.font-colour-red {
+    color: red;
+}
+
+
+.text-xl {
+    font-size: var(--font-size-extra-large);
+}
+
+.text-lg {
+    font-size: var(--font-size-large);
+}
+
+.text-md {
+    font-size: var(--font-size-medium);
+}
+
+.text-sm {
+    font-size: var(--font-size-small);
+}
+
+[data-font_size="text-xl"] {
+    font-size: var(--font-size-extra-large);
+}
+
+[data-font_size="text-lg"] {
+    font-size: var(--font-size-large);
+}
+
+[data-font_size="text-md"] {
+    font-size: var(--font-size-medium);
+}
+
+[data-font_size="text-sm"] {
+    font-size: var(--font-size-small);
+}
+
+h1, h2, h3, h4, h5, .b1 {
+    color: var(--primary-colour);
+    font-family: var(--font-family);
+}
+
+.colour-secondary {
+    color: var(--secondary-colour);
+    border;
+}
+
+.border {
+    border-color: var(--primary-colour) !important;
+}
+
+a {
+    color: var(--secondary-colour);
+}
+
+a:hover {
+    color: #5F4482;
+}
+
+.faded {
+    opacity: 0.5;
+}
+
+.invisible {
+    opacity: 0;
+}
+

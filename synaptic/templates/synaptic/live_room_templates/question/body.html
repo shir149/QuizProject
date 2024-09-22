@@ -1,0 +1,46 @@
+<div id='content-container-inner' class='mb-2'>
+    <div class="row text-center justify-content-center mx-auto">
+            <h2>{{ question.question }}</h2>
+    </div>
+
+    <div class="row col-12 font-weight-bold ml-2 justify-content-center mx-auto mb-2">
+        <div class="col-12 col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-1 text-center align-self-center mb-4 mb-sm-2 mb-md-0">
+            <div id="countdown" class="countdown-question text-center mx-auto">{{ time_limit }}</div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+            <div class=" text-center animation_container ml-0 mr-0">
+        <!--        <div class="col-md-4 animation-wrapper">-->
+                <img src="{{ media_url }}" class = "img-fluid animation">
+                <div class="cover"></div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-2 col-lg-1 mt-2 justify-content-end text-center align-self-center mt-4 mt-sm-2 mt-md-0">
+            <span id="answer-status">Answers: {{ answer_status }}</span>
+        </div>
+    </div>
+
+    <div class="row col-10 text-center justify-content-center mx-auto mb-3">
+        {% for answer in answers %}
+            <div class="col-12 col-lg-6 mt-2 mb-0 ms-0 me-0 text-center">
+                {% if host %}
+                    <div id="answer-btn{{answer.answer_number}}"
+                         class="btn-primary {{ answer_text_size }} equal-button answer-div rounded-pill mt-0 mb-0 ms-0 me-0 w-100 h-100"
+                         style="background-color: {{ answer.answer_colour }} !important"
+                         data-button-number="{{answer.answer_number}}">
+                        {{ answer.answer }}
+                    </div>
+                {% else %}
+                    <button id="answer-btn{{answer.answer_number}}"
+                            class="btn btn-primary {{ answer_text_size }} equal-button answer-btn rounded-pill mt-0 mb-0 ms-0 me-0 w-100 h-100"
+                            style="background-color: {{ answer.answer_colour }} !important"
+                            data-button-number="{{answer.answer_number}}" onclick="sendAnswerButton(this)">
+                        {{ answer.answer }}
+                    </button>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+

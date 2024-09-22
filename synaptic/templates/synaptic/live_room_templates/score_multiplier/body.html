@@ -1,0 +1,12 @@
+<div id='content-container-inner' class='mt-2 mb-4'>
+    {% if question.score_multiplier != 1 %}
+        <div class="mt-5 mb-5"></div>
+        <div class="row score-multiplier-container text-center justify-content-center align-items-center mx-auto">
+            <div class="mt-5 score-multiplier position-absolute">
+                {{ score_multiplier }}x</div>
+        </div>
+    {% endif %}
+</div>
+
+
+

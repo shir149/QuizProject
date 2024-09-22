@@ -1,0 +1,37 @@
+{% extends "synaptic/layout.html" %}
+
+{% block body %}
+    <h2>{{ title }}</h2>
+
+    {% if quiz_errors %}
+        {% for error in quiz_errors %}
+            <div class="row ml-2 mt-2">
+                <div class="col-3">{{ error }}</div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if question_errors %}
+        <div class="container ml-0 mt-3">
+            <div class="row font-weight-bold ml-2">
+                <div class="col-1">#</div>
+                <div class="col-2">Question</div>
+                <div class="col-2">Error(s)</div>
+            </div>
+            {% for error in question_errors %}
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row ml-2 mt-2">
+                        <input class="position-absolute" type="hidden" name="question_number" value={{ error.number }}></input>
+                        <div class="col-1">{{ error.number }}</div>
+                        <div class="col-2">{{ error.question }}</div>
+                        <div class="col-3">{{ error.errors | safe }}</div>
+                        <button type="submit" class="fas fa-edit icon-button col-md-1"></button>
+                    </div>
+                </form>
+            {% endfor %}
+            </div>
+    {% endif %}
+
+{% endblock %}
+

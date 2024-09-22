@@ -1,0 +1,11 @@
+{% extends "synaptic/layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+    <h2 class="text-center">{{ title }}</h2>
+
+    {% crispy quiz_form %}
+
+{% endblock %}
+

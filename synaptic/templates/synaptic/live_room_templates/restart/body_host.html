@@ -1,0 +1,31 @@
+<div id='content-container-inner' class='mt-4'>
+    {% if questions %}
+    <div class="container mr-0 ml-0 mt-3 mx-auto justify-content-center">
+        <div class="row font-weight-bold ms-2 me-2 mx-auto justify-content-center">
+            <div class="col-1 .colour-secondary text-center">#</div>
+            <div class="col-5 col-lg-7 .colour-secondary">Question</div>
+            <div class="col-1"></div>
+        </div>
+        {% for question in questions %}
+            <div class="row ms-2 me-2 mt-2 mx-auto justify-content-center">
+                <input class="position-absolute question-id" type="hidden" name="question_id"
+                       disabled="disabled" value={{ question.id }}></input>
+                <div class="col-1 question-number text-center">{{ question.question_number}}</div>
+                <div class="col-5 col-lg-7">{{ question.question}}</div>
+                <div class="col-1">
+                    <button type="submit" name="submit" value="restart-from-question"
+                            class="fas fa-step-forward icon-button"
+                            data-id="{{ question.question_number }}"
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="Restart"
+                            onclick="sendRestart(this)">
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center">No questions found for quiz {{ quiz.title }}</div>
+    {% endif %}
+</div>
+
+
