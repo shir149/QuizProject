@@ -43,7 +43,7 @@ Admin Management: Create, amend, and manage quizzes and questions with ease.
 
 2. Downloading the project files
 	2.1. Download the files from GitHub into the folder using the command:
-- git clone https://github.com/Dug-F/Synaptic.git
+- git clone https://github.com/shir149/QuizProject.git
 - cd Synaptic
 3. Installing Python packages
 	3.1. Install all progress dependencies using the command:
